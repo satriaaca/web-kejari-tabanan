@@ -104,27 +104,29 @@ Beranda
     <div class="">
         <h3 class="text-center font-bebas fs-1 mt-10">LAYANAN <span class="text-primary">PUBLIK</span></h3>
         <div class="row pb-3 sum-container d-flex justify-content-center p-3">
-            <?php foreach($layanan as $key => $value){ ?>
-            <div class="col-md-3 col-sm-2 p-2 ">
+        <?php 
+        // print_r($layanan);
+        foreach($layanan as $key => $value){ ?>
+        <div class="col-md-3 col-sm-2 p-2">
                 <a href="<?=$value['link']?>" target="_blank"
-                    class="card h-100 hover-elevate-up shadow-sm parent-hover">
-                    <div class="card-body d-flex align-items">
-                        <span>
-                            <i class="bi text-primary parent-hover-primary bi-arrow-up-left-circle-fill fs-4hx"></i>
-                        </span>
+                    class="card h-100 hover-elevate-up shadow-sm parent-hover <?= $key % 2 == 0 ? 'bg-primary' : 'bg-white' ?>">
+                    <div class="card-body d-flex flex-column align-items-center text-center">
+                    
+                    <!-- Image on top -->
+                    <img src="<?= base_url("uploads/".$value['gambar']) ?>" 
+                        alt="<?=$value['title']?>"
+                        style="width: 250px; height: 120px; border-radius:10px;">
 
-                        <span class="ms-3 text-primary parent-hover-primary fs-4 fw-bold">
-                            <?=$value['title']?>
-                            <br>
-                            <span
-                                class="small text-gray-700 parent-hover-primary fs-6 fw-bold"><?=limitString($value['subtitle'],50)?></span>
-                        </span>
-
-                    </div>
-                </a>
-            </div>
-
-            <?php } ?>
+                    <span class="mt-3 fs-4 fw-bold <?= $key % 2 == 0 ? 'text-white' : 'text-primary' ?>">
+                        <?=$value['title']?>
+                    </span>
+                    <span class="small fs-6 fw-bold <?= $key % 2 == 0 ? 'text-white' : 'text-gray-700' ?>">
+                        <?=limitString($value['subtitle'],50)?>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <?php } ?>
         </div>
     </div>
 </div>
@@ -147,8 +149,9 @@ Beranda
         <?php } ?>
 
     </div>
-    <div class="mt-5">
+    <!-- <div class="mt-5">
         <div class="row">
+            
         <div class="col-lg-4">
                 <h3 class="font-bebas fs-1 mt-3">Siaran Pers <span class="text-primary">Kejaksaan Agung</span></h3>
 
@@ -181,8 +184,8 @@ Beranda
             </div>
 
         </div>
-    </div>
-
+    </div> -->
+    <!--
     <div class="row mb-10 mt-10">
         <div class="col-lg-6">
             <div class="card shadow min-h-200px">
@@ -231,6 +234,7 @@ Beranda
             </div>
         </div>
     </div>
+-->
 </section>
 
 
@@ -304,6 +308,7 @@ $firstVideo = $video[0];
 
 // Sisa video (jika ada)
 $remainingVideos = array_slice($video, 1);
+// print_r($remainingVideos);
 ?>
                 <iframe class="rounded" width="100%" height="315"
                     src="https://www.youtube.com/embed/<?=$firstVideo['link']?>" title="YouTube video player"
@@ -321,7 +326,7 @@ $remainingVideos = array_slice($video, 1);
                         <a href="<?=site_url('video')?>" class="btn btn-primary">Lihat lainnya</a>
                     </div>
                     <?php foreach ($remainingVideos as $key => $value): ?>
-                    <div class="col-lg-4 col-6 d-flex justify-content-center align-items-center">
+                    <div class="col-lg-4 col-6 d-flex justify-content-center align-items-center" style="padding-top:10px">
                         <iframe class="rounded" width="100%" height="150"
                             src="https://www.youtube.com/embed/<?=$value['link']?>" title="YouTube video player"
                             frameborder="0"
@@ -333,9 +338,9 @@ $remainingVideos = array_slice($video, 1);
                 </div>
 
 
-                <div class="text-center ">
+                <!-- <div class="text-center ">
                     <span class="fs-1  mt-10 font-bebas"><?=$setting !== null?  $setting['motto'] : ''; ?></span>
-                </div>
+                </div> -->
 
 
                 <style>
@@ -347,14 +352,14 @@ $remainingVideos = array_slice($video, 1);
                 }
                 </style>
 
-                <div class="row mt-5">
+                <!-- <div class="row mt-5">
                     <div class="col-lg-6 col-md-6 col-6">
 
                     </div>
                     <div class="col-lg-6 col-md-6 col-6">
 
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-4 rounded p-4 border border-gray-300" style="background-color: #F8FAFC">
                 <h3 class="text-primary fs-1 font-bebas">Pencarian</h3>

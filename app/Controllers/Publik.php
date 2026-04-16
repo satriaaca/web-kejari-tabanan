@@ -42,7 +42,7 @@ class Publik extends BaseController
     public function home(){
         $data = $this->getDefaultData([
             'slider' => $this->models['slideshow']->findAll(),
-            'layanan' => $this->models['layanan']->orderBy('created_at', 'DESC')->findAll(6),
+            'layanan' => $this->models['layanan']->orderBy('created_at', 'DESC')->findAll(),
             'berita' => $this->models['berita']->where('jenis', 'berita')->orderBy('created_at', 'DESC')->findAll(4),
             'video' => $this->models['video']->orderBy('created_at', 'DESC')->findAll(3),
             'dokumen' => $this->models['dokumen']->orderBy('created_at', 'DESC')->findAll(3),
