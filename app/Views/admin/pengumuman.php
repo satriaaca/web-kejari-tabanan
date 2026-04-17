@@ -127,26 +127,65 @@ Pengumuman
 <?= $this->section('scripts') ?>
 <link href="<?= $_baseurl ?>/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <script src="<?= $_baseurl ?>/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<script src="<?= $_baseurl ?>assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/super-build/ckeditor.js"></script>
 
 <script>
-    let editor; // Variabel global untuk menyimpan instance editor
-ClassicEditor
-.create(document.querySelector('#isi'), {
-        toolbar: [
-            'heading', '|', 'bold', 'italic',  '|', 'imageUpload', 'blockQuote', 'undo', 'redo'
-        ],
-        ckfinder: {
-            // Opsi konfigurasi CKFinder jika digunakan
-            uploadUrl: '<?=site_url('api/berita/uploadImage')?>' // Ganti dengan endpoint untuk upload gambar
+CKEDITOR.ClassicEditor.create(document.querySelector('#isi'), {
+    toolbar: {
+        items: [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'alignment', '|',
+            'bulletedList', 'numberedList', '|',
+            'link', 'imageUpload', 'blockQuote', 'insertTable', '|',
+            'fontColor', 'fontSize', '|',
+            'indent', 'outdent', '|',
+            'undo', 'redo'
+        ]
+    },
+    alignment: {
+        options: ['left', 'center', 'right', 'justify']
+    },
+    heading: {
+        options: [
+            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+            { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+            { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+            { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+        ]
+    },
+    fontSize: {
+        options: [10, 12, 14, 'default', 18, 20, 24],
+        supportAllValues: true
+    },
+    list: {
+        properties: {
+            styles: true,      // allows bullet style changes (disc, circle, square)
+            startIndex: true,  // allows numbered list to start at custom number
+            reversed: true     // allows reversed numbered list
         }
-    })
-    .then(instance => {
-        editor = instance; // Simpan instance editor di variabel global
-    })
-    .catch(error => {
-        console.error('Error initializing CKEditor:', error);
-    });
+    },
+    table: {
+        contentToolbar: [
+            'tableColumn', 'tableRow', 'mergeTableCells'
+        ]
+    },
+    removePlugins: [
+        'AIAssistant', 'CKBox', 'CKFinder', 'EasyImage',
+        'MultiLevelList', 'RealTimeCollaborativeComments',
+        'RealTimeCollaborativeTrackChanges', 'RealTimeCollaborativeRevisionHistory',
+        'PresenceList', 'Comments', 'TrackChanges', 'TrackChangesData',
+        'RevisionHistory', 'Pagination', 'WProofreader', 'MathType',
+        'SlashCommand', 'Template', 'DocumentOutline', 'FormatPainter',
+        'TableOfContents', 'PasteFromOfficeEnhanced', 'CaseChange'
+    ],
+    ckfinder: {
+        uploadUrl: '<?=site_url('api/berita/uploadImage')?>'
+    }
+})
+.then(instance => { editor = instance; })
+.catch(error => { console.error(error); });
     
 function strip(html) {
     let doc = new DOMParser().parseFromString(html, 'text/html');

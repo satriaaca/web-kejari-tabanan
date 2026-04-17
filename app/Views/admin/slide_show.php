@@ -289,9 +289,11 @@ $(document).ready(function() {
             $.ajax({
                 type: 'POST',
                 url: "<?=site_url('api/slider/delete/')?>" + id,
-                data: { _method: 'DELETE' }, // standard CI4 spoofing
                 success: function(response) {
                     location.reload();
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
                 }
             });
         }
